@@ -4,22 +4,34 @@ import SearchCompanies from './SearchCompanies'
 export class ShowCompanies extends Component {
 constructor(props) {
     super(props)
-
+   
     this.state = {
-         stockList:[{stockPrice:1222, stardate:"20/2/2021",time:"12:12:12"},
-         {stockPrice:1222, stardate:"20/2/2021",time:"12:12:13"},
-         {stockPrice:1222, stardate:"20/2/2021",time:"12:12:14"}
+         stockList:[]
         
-    ]
+    
     }
+}
+convertDateToLocalDate=(date)=>{
+    let d = new Date(date),
+    mnth = ("0" + (d.getMonth() + 1)).slice(-2),
+    day = ("0" + d.getDate()).slice(-2);
+  return [d.getFullYear(), day,mnth].join("-");
+
+}
+
+getTime=(date)=>{
+    let d = new Date(date)
+return d.toLocaleTimeString()
 }
 
 
     render() {
+        let data = this.props.data;
+        
         let details ="No Details Found"
-        if (this.state.stockList.length > 0) {
-            details = this.state.stockList.map(it => <tr key={it.time}><td>{it.stockPrice}</td>
-                <td>{it.stardate}</td> <td> {it.time}</td></tr>)
+        if (data.stock.length > 0) {
+            details = data.stock.map(it => <tr key={this.convertDateToLocalDate(it.stockDate)}><td>{it.stockPrice}</td>
+                <td>{this.convertDateToLocalDate(it.stockDate)}</td> <td> {this.getTime(it.stockDate)}</td></tr>)
         }
 
         return (
@@ -40,9 +52,9 @@ constructor(props) {
                 </Table>
 
                 <table bordered>
-                    <tr><td>Min</td><td>12222</td></tr>
-                    <tr><td>Max</td><td>12222</td></tr>
-                    <tr><td>Avg</td><td>12222</td></tr>
+                    <tr><td>Min</td><td>{this.props.data.min}</td></tr>
+                    <tr><td>Max</td><td>{this.props.data.max}</td></tr>
+                    <tr><td>Avg</td><td>{this.props.data.avg}</td></tr>
 
                     </table>
             </div>
