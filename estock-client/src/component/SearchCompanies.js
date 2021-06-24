@@ -30,7 +30,7 @@ export class SearchCompanies extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8090/company/v1.0/market/company/getall").then(res => {
+        axios.get("http://localhost:8080/zuul/company/v1.0/market/company/getall").then(res => {
             console.log(res);
             this.setState({ companies: res.data })
         })
@@ -62,7 +62,7 @@ export class SearchCompanies extends Component {
     let endDate=this.convert(this.state.endDate.toString());
     
 
-        axios.get("http://localhost:8081/stock/v1.0/market/stock/get/" + this.state.companyCode +
+        axios.get("http://localhost:8080/zuul/stock/v1.0/market/stock/get/" + this.state.companyCode +
          "/" + startDate+ "/" + endDate).then(
             res => {
                 console.log(res.data)
