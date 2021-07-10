@@ -30,10 +30,13 @@ export class SearchCompanies extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/zuul/company/v1.0/market/company/getall").then(res => {
+        axios.get("https://inzi76a84h.execute-api.ap-south-1.amazonaws.com/ApiZuulStock/company").then(res => {
             console.log(res);
             this.setState({ companies: res.data })
         })
+        //http://13.235.57.104:8083/company/v1.0/market/company/getall
+        //https://inzi76a84h.execute-api.ap-south-1.amazonaws.com/ApiZuulStock/company
+       
     }
     handleStartDarteChange = (date) => {
         this.setState({
@@ -60,9 +63,9 @@ export class SearchCompanies extends Component {
     
     let startDate=this.convert( this.state.startDate.toString());
     let endDate=this.convert(this.state.endDate.toString());
-    
-
-        axios.get("http://localhost:8080/zuul/stock/v1.0/market/stock/get/" + this.state.companyCode +
+    //http://13.235.57.104:8083/stock/v1.0/market/stock/get/
+//
+        axios.get("https://inzi76a84h.execute-api.ap-south-1.amazonaws.com/ApiZuulStock/stock/" + this.state.companyCode +
          "/" + startDate+ "/" + endDate).then(
             res => {
                 console.log(res.data)
